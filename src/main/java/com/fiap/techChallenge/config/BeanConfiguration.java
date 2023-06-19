@@ -15,6 +15,7 @@ public class BeanConfiguration {
         return new InsertCustomerUseCase(saveUserAdapter, findUserByCpfAdapter);
     }
 
+    @Bean
     public FindCustomerByCpfUseCase findUserByCpfUseCase(FindCustomerByCpfAdapter findUserByCpfAdapter) {
         return new FindCustomerByCpfUseCase(findUserByCpfAdapter);
     }
