@@ -1,5 +1,6 @@
 package com.fiap.techChallenge.infrastructure.product;
 
+import com.fiap.techChallenge.domain.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,4 +29,13 @@ public class ProductEntity {
 
     @ElementCollection
     private List<String> images;
+
+    public static ProductEntity createEntity(Product product) {
+        return ProductEntity.builder()
+                .price(product.getPrice())
+                .category(product.getCategory())
+                .description(product.getDescription())
+                .images(product.getImages())
+                .build();
+    }
 }

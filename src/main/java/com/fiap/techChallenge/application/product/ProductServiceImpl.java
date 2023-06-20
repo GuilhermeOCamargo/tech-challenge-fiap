@@ -1,6 +1,7 @@
 package com.fiap.techChallenge.application.product;
 
 import com.fiap.techChallenge.domain.Product;
+import com.fiap.techChallenge.infrastructure.exceptions.NotFoundException;
 import com.fiap.techChallenge.infrastructure.product.ProductEntity;
 import com.fiap.techChallenge.infrastructure.product.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,21 +17,17 @@ public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
 
+    private final String PRODUCT_NOT_FOUND = "Product not found";
+
     @Override
     public Product saveProduct(Product product) {
-        ProductEntity productEntity = ProductEntity.builder()
-                .price(product.getPrice())
-                .category(product.getCategory())
-                .description(product.getDescription())
-                .images(product.getImages())
-                .build();
-
+        ProductEntity productEntity = ProductEntity.createEntity(product);
         return fromModel(productRepository.save(productEntity));
     }
 
     @Override
     public Product updateProduct(Product product) {
-        ProductEntity productEntity = productRepository.findById(product.getId()).orElseThrow(() -> new RuntimeException("Product not found"));
+        ProductEntity productEntity = productRepository.findById(product.getId()).orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND));
 
         productEntity.setCategory(product.getCategory());
         productEntity.setPrice(product.getPrice());
@@ -43,13 +39,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(Long id) {
-        Optional<ProductEntity> productOpt = productRepository.findById(id);
-
-        if (productOpt.isPresent()) {
-            ProductEntity productEntity = productOpt.get();
-            return fromModel(productEntity);
-        }
-        return null;
+        ProductEntity product = productRepository.findById(id).orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND));
+        return fromModel(product);
     }
 
     @Override
@@ -80,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long id) {
-        ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND));
         productRepository.delete(productEntity);
     }
 

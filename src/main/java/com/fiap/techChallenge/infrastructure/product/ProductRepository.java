@@ -1,5 +1,6 @@
 package com.fiap.techChallenge.infrastructure.product;
 
+import com.fiap.techChallenge.infrastructure.product.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
