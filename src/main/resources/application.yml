@@ -3,6 +3,11 @@ spring:
     activate:
       on-profile: default
 
+server:
+  servlet:
+    context-path: /tech-challenge
+  port: 8080
+
 ---
 
 spring:
@@ -19,3 +24,7 @@ spring:
     hibernate:
       ddl-auto: update
 
+server:
+  servlet:
+    context-path: /tech-challenge
+  port: 8080

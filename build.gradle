@@ -26,6 +26,7 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     implementation 'com.google.guava:guava:32.0.1-jre'
+    implementation 'br.com.caelum.stella:caelum-stella-core:2.1.6'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

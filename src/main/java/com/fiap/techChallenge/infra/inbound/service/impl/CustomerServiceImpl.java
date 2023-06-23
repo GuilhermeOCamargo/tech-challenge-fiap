@@ -13,7 +13,9 @@ import com.fiap.techChallenge.infra.inbound.exception.DataInputException;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceAlreadyExists;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceNotFoundException;
 import com.fiap.techChallenge.infra.inbound.service.CustomerService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerInPort port;
 
-    public Customer insert(CustomerDto userDto) {
+    public CustomerDto insert(@Valid CustomerDto customerDto) {
         try{
-            return port.insert(userDto.toDomain());
+            var  customer = port.insert(customerDto.toDomain());
+            return CustomerDto.of(customer);
         } catch (CustomerAlreadyExistsException e) {
             throw new ResourceAlreadyExists(e.getMessage());
         } catch (InvalidDataException e) {
@@ -33,9 +36,10 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    public Customer findByCpf(String cpf) {
+    public CustomerDto findByCpf(@Valid @CPF String cpf) {
         try{
-            return port.findByCpf(new Cpf(cpf));
+            var customer = port.findByCpf(new Cpf(cpf));
+            return CustomerDto.of(customer);
         } catch (CustomerNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
         } catch (InvalidDataException e) {

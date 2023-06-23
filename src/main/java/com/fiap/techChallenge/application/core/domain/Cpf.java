@@ -1,11 +1,10 @@
 package com.fiap.techChallenge.application.core.domain;
 
-import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
-import com.google.common.base.Strings;
+import com.fiap.techChallenge.application.core.util.CpfValidatorUtil;
 
 public record Cpf(String value) {
     public Cpf{
-        if(Strings.isNullOrEmpty(value))
-            throw new InvalidDataException("Cpf inválido");
+        CpfValidatorUtil.validate(value);
     }
+
 }

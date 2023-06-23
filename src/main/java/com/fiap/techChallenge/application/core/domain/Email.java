@@ -1,11 +1,9 @@
 package com.fiap.techChallenge.application.core.domain;
 
-import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
-import com.google.common.base.Strings;
+import com.fiap.techChallenge.application.core.util.EmailValidatorUtils;
 
 public record Email(String value) {
     public Email{
-        if(Strings.isNullOrEmpty(value))
-            throw new InvalidDataException("Email inválido");
+        EmailValidatorUtils.validate(value);
     }
 }

@@ -1,21 +1,35 @@
 package com.fiap.techChallenge.infra.inbound.dto;
 
 import com.fiap.techChallenge.application.core.domain.Customer;
-import com.fiap.techChallenge.infra.inbound.dto.validations.UniqueCpf;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.br.CPF;
+import lombok.*;
 
-public record CustomerDto(@NotNull @NotEmpty @CPF String cpf,
-                          @NotNull @NotEmpty @Email String email,
-                          @NotNull @NotEmpty String name) {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+public class CustomerDto {
+
+    private Long id;
+    private String cpf;
+    private String email;
+    private String name;
+
+    public static CustomerDto of(Customer customer) {
+        return CustomerDto.builder()
+                .id(customer.id())
+                .cpf(customer.cpf().value())
+                .email(customer.email().value())
+                .name(customer.name())
+                .build();
+    }
 
     public Customer toDomain() {
         return Customer.builder()
-                .cpf(this.cpf())
-                .email(this.email())
-                .name(this.name)
+                .id(this.getId())
+                .cpf(this.getCpf())
+                .email(this.getEmail())
+                .name(this.getName())
                 .build();
     }
 }

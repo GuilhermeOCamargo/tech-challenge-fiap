@@ -1,24 +1,35 @@
 package com.fiap.techChallenge.infra.outbound.repository.mariadb.entity;
 
 import com.fiap.techChallenge.application.core.domain.Customer;
-import com.google.common.base.Strings;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.UUID;
 @Entity
 @Table(name = "customer")
-public record CustomerEntity(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) String uuid, String cpf, String email, String name) {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class CustomerEntity {
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String cpf;
+    private String email;
+    private String name;
 
     public CustomerEntity(Customer customer) {
-        this(customer.uuid(), customer.name(), customer.email().value(), customer.cpf().value());
+        this(customer.id(), customer.cpf().value(), customer.email().value(), customer.name());
     }
 
     public Customer toDomain() {
         return Customer.builder()
-                .uuid(this.uuid)
-                .cpf(this.cpf())
-                .email(this.email())
+                .id(this.id)
+                .cpf(this.getCpf())
+                .email(this.getEmail())
                 .name(this.name)
                 .build();
     }

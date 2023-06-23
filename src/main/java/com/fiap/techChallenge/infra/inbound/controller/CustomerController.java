@@ -1,6 +1,5 @@
 package com.fiap.techChallenge.infra.inbound.controller;
 
-import com.fiap.techChallenge.application.core.domain.Customer;
 import com.fiap.techChallenge.infra.inbound.dto.CustomerDto;
 import com.fiap.techChallenge.infra.inbound.service.CustomerService;
 import lombok.AllArgsConstructor;
@@ -17,12 +16,12 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer insertUser(CustomerDto userDto) {
+    public CustomerDto insertUser(@RequestBody CustomerDto userDto) {
         return customerService.insert(userDto);
     }
 
-    @GetMapping("/cpf/{cpf}")
-    public Customer findUserByCpf(@PathVariable("cpf") String cpf) {
+    @GetMapping("cpf/{cpf}")
+    public CustomerDto findUserByCpf(@PathVariable("cpf") String cpf) {
         return customerService.findByCpf(cpf);
     }
 
