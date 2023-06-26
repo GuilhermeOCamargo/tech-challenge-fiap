@@ -20,13 +20,21 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.1.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.1.1'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
+
     compileOnly 'org.projectlombok:lombok'
+    implementation 'com.google.guava:guava:32.0.1-jre'
+    implementation 'br.com.caelum.stella:caelum-stella-core:2.1.6'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.h2database:h2'
+
 }
 
 tasks.named('test') {

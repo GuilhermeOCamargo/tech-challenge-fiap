@@ -1,10 +1,44 @@
 spring:
   config:
     activate:
-      on-profile: default
+      on-profile: prd
+  datasource:
+    url: jdbc:mariadb://tech_challenge_db:3306/tech_challenge
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: application_user
+    password: SENHA123
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  servlet:
+    context-path: /tech-challenge
+  port: 8080
 
 ---
 
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mariadb://localhost:3306/tech_challenge
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: application_user
+    password: SENHA123
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  servlet:
+    context-path: /tech-challenge
+  port: 8080
+
+---
 spring:
   config:
     activate:
@@ -19,3 +53,7 @@ spring:
     hibernate:
       ddl-auto: update
 
+server:
+  servlet:
+    context-path: /tech-challenge
+  port: 8080

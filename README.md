@@ -22,7 +22,7 @@ Para testar a execução, faça a seguinte chamada http:
 A aplicação deve responder com um status 200.
 
 ### Rodando o banco de dados isoladamente
-A imagem utilizada para executar a aplicaççao foi baseada na imagem oficial do mariaDb. Para criar a imagem docker, deve-se abrir um terminal e navegar até a pasta **/database** do projeto e executar o seguinte comando:
+A imagem utilizada para executar a aplicaçao foi baseada na imagem oficial do mariaDb. Para criar a imagem docker, deve-se abrir um terminal e navegar até a pasta **/database** do projeto e executar o seguinte comando:
 `docker build -t <TAG_DA_IMAGEM> . `.
 
 O dockerfile irá configurar a senha do usuário root e também irá copiar o arquivo **setup.sql** para a pasta **/docker-entrypoint-initdb.d** dentro do container. Todos os arquivos **.sql**, **.sh**, etc... localizados na pasta **docker-entrypoint-initdb.d** são executados automaticamente quando o container é iniciado.
