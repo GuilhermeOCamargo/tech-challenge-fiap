@@ -1,8 +1,8 @@
 package com.fiap.techChallenge.application.core.service;
 
 import com.fiap.techChallenge.application.core.domain.Customer;
-import com.fiap.techChallenge.application.core.exceptions.CustomerAlreadyExistsException;
-import com.fiap.techChallenge.application.core.exceptions.CustomerNotFoundException;
+import com.fiap.techChallenge.application.core.exceptions.AlreadyExistsException;
+import com.fiap.techChallenge.application.core.exceptions.NotFoundException;
 import com.fiap.techChallenge.application.ports.out.CustomerOutPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ public class CustomerInServiceTest {
     @Test
     public void givenValidCustomer_whenSave_thenThrowCustomerExists() {
         when(port.findByCpf(CUSTOMER.cpf())).thenReturn(CUSTOMER);
-        assertThrowsExactly(CustomerAlreadyExistsException.class, () -> service.insert(CUSTOMER));
+        assertThrowsExactly(AlreadyExistsException.class, () -> service.insert(CUSTOMER));
         verify(port, times(1)).findByCpf(any());
         verify(port, times(0)).save(CUSTOMER);
     }
@@ -59,7 +59,7 @@ public class CustomerInServiceTest {
     @Test
     public void givenValidCpf_whenFindByCpf_thenThrowCustomerNotFound(){
         when(port.findByCpf(CUSTOMER.cpf())).thenReturn(null);
-        assertThrowsExactly(CustomerNotFoundException.class, () -> service.findByCpf(CUSTOMER.cpf()));
+        assertThrowsExactly(NotFoundException.class, () -> service.findByCpf(CUSTOMER.cpf()));
         verify(port, times(1)).findByCpf(any());
     }
 
