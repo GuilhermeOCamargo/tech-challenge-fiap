@@ -27,6 +27,14 @@ public class ProductInService implements ProductInPort {
     @Override
     public Product updateProduct(Product product) {
         Product productSaved = getProductById(product.id());
+
+        productSaved.builder()
+                .category(product.category())
+                .price(product.price())
+                .description(product.description())
+                .images(product.images())
+                .build();
+
         return port.updateProduct(productSaved);
     }
 

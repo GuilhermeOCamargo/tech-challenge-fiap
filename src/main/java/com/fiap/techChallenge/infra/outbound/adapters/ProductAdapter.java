@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.fiap.techChallenge.application.core.util.ConstantsUtil.PRODUCT_NOT_FOUND;
@@ -27,20 +28,13 @@ public class ProductAdapter implements ProductOutPort {
 
     @Override
     public Product updateProduct(Product product) {
-        ProductEntity productEntity = productRepository.findById(product.id()).orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND));
-
-        productEntity.setCategory(product.category());
-        productEntity.setPrice(product.price());
-        productEntity.setDescription(product.description());
-        productEntity.setImages(product.images());
-
         return productRepository.save(new ProductEntity(product)).toDomain();
     }
 
     @Override
     public Product getProductById(Long id) {
-        ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND));
-        return productEntity.toDomain();
+        Optional<ProductEntity> productEntity = productRepository.findById(id);
+        return productEntity.isPresent() ? productEntity.get().toDomain() : null;
     }
 
     @Override

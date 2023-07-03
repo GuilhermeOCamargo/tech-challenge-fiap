@@ -18,5 +18,8 @@ public record Product(Long id, String category, Double price, String description
 
         if (images.isEmpty())
             throw new InvalidDataException("Invalid images");
+
+        if (price == null || price == 0)
+            throw new InvalidDataException("Invalid price");
     }
 }
