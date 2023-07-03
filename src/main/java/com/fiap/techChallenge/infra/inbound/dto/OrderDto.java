@@ -32,7 +32,7 @@ public class OrderDto {
                 .build();
     }
 
-    public OrderDto of(Order order){
+    public static OrderDto of(Order order){
         return OrderDto.builder()
                 .orderId(order.id())
                 .customerId(order.customerId())

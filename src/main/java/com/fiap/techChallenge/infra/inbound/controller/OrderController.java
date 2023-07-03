@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -19,7 +21,9 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public OrderDto insertOrder(@RequestBody OrderDto orderDto){ return orderService.insert(orderDto);}
 
-    public OrderDto findAll(){
-        return orderService.f
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderDto> findAll(){
+        return orderService.findAll();
     }
 }

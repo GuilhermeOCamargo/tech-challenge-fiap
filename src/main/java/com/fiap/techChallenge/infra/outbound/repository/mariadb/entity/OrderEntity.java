@@ -1,6 +1,7 @@
 package com.fiap.techChallenge.infra.outbound.repository.mariadb.entity;
 
 import com.fiap.techChallenge.application.core.domain.Order;
+import com.fiap.techChallenge.application.core.domain.OrderItems;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,10 +25,14 @@ public class OrderEntity {
     private String status;
     private String paymentMethod;
 
+    @OneToMany(mappedBy = "orders", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<OrderItemsEntity> orderItems;
+
+    public OrderEntity(Long id, Long customerId, Double price, String status, String paymentMethod) {
+    }
     public OrderEntity(Order order) {
         this(order.id(), order.customerId(), order.price(), order.status(), order.paymentMethod());
     }
-
     public Order toDomain(){
         return Order.builder()
                 .id(this.id)
@@ -36,15 +41,5 @@ public class OrderEntity {
                 .status(this.status)
                 .paymentMethod(this.paymentMethod)
                 .build();
-    }
-
-    public List<Order> toList(){
-        return List.of(Order.builder()
-                .id(this.id)
-                .customerId(this.customerId)
-                .price(this.price)
-                .status(this.status)
-                .paymentMethod(this.paymentMethod)
-                .build());
     }
 }
