@@ -1,13 +1,10 @@
 package com.fiap.techChallenge.infra.inbound.service.impl;
 
 import com.fiap.techChallenge.application.core.domain.Cpf;
-import com.fiap.techChallenge.application.core.domain.Customer;
 import com.fiap.techChallenge.application.core.exceptions.CustomerAlreadyExistsException;
 import com.fiap.techChallenge.application.core.exceptions.CustomerNotFoundException;
 import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
 import com.fiap.techChallenge.application.ports.in.CustomerInPort;
-import com.fiap.techChallenge.application.ports.in.FindCustomerByCpfCasePort;
-import com.fiap.techChallenge.application.ports.in.InsertCustomerCasePort;
 import com.fiap.techChallenge.infra.inbound.dto.CustomerDto;
 import com.fiap.techChallenge.infra.inbound.exception.DataInputException;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceAlreadyExists;

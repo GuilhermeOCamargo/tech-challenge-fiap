@@ -28,7 +28,6 @@ public class CustomerInService implements CustomerInPort {
     public Customer insert(Customer customer) throws CustomerAlreadyExistsException {
         if(Objects.nonNull(port.findByCpf(customer.cpf())))
             throw new CustomerAlreadyExistsException();
-
-        return port.save(customer);
+        return port.save(customer.emptyId());
     }
 }
