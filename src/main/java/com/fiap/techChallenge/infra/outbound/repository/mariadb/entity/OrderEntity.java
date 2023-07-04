@@ -31,10 +31,6 @@ public class OrderEntity {
         this(order.id(), order.customerId(), order.price(), order.status(), order.paymentMethod(), null);
     }
 
-    public List<OrderItems> getOrderItems() {
-
-    }
-
     public Order toDomain(){
         return Order.builder()
                 .id(this.id)
