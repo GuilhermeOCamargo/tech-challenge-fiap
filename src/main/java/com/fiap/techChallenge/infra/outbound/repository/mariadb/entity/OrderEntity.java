@@ -24,15 +24,17 @@ public class OrderEntity {
     private Double price;
     private String status;
     private String paymentMethod;
-
     @OneToMany(mappedBy = "orders", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<OrderItemsEntity> orderItems;
 
-    public OrderEntity(Long id, Long customerId, Double price, String status, String paymentMethod) {
-    }
     public OrderEntity(Order order) {
-        this(order.id(), order.customerId(), order.price(), order.status(), order.paymentMethod());
+        this(order.id(), order.customerId(), order.price(), order.status(), order.paymentMethod(), null);
     }
+
+    public List<OrderItems> getOrderItems() {
+
+    }
+
     public Order toDomain(){
         return Order.builder()
                 .id(this.id)
@@ -40,6 +42,9 @@ public class OrderEntity {
                 .price(this.price)
                 .status(this.status)
                 .paymentMethod(this.paymentMethod)
+                .orderItems(getOrderItems())
                 .build();
     }
+
+
 }

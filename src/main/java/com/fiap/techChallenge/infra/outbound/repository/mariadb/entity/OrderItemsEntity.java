@@ -20,27 +20,26 @@ public class OrderItemsEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long orderId;
+
     private Long productId;
     private String description;
     private Long quantity;
     @ManyToOne
+    @JoinColumn(name = "orderId")
     private OrderEntity orders;
 
     public OrderItemsEntity(OrderItems items){
-        this(items.id(), items.orderId(), items.productId(), items.description(), items.quantity() );
-    }
-
-    public OrderItemsEntity(Long id, Long aLong, Long aLong1, String description, Long quantity) {
+        this(items.id(), items.productId(), items.description(), items.quantity(), null );
     }
 
     public OrderItems toDomain(){
         return OrderItems.builder()
                 .id(this.id)
-                .orderId(this.orderId)
                 .productId(this.productId)
                 .description(this.description)
                 .quantity(this.quantity)
                 .build();
     }
+
+
 }

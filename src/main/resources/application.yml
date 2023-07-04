@@ -32,6 +32,9 @@ spring:
     database-platform: org.hibernate.dialect.MariaDB103Dialect
     hibernate:
       ddl-auto: update
+  h2:
+    console:
+      enabled: true
 
 server:
   servlet:
@@ -52,6 +55,9 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+  h2:
+    console:
+      enabled: true
 
 server:
   servlet:
