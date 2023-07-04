@@ -5,6 +5,7 @@ import com.fiap.techChallenge.application.core.domain.OrderItems;
 import com.sun.jna.WString;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,7 +17,8 @@ public class OrderDto {
 
     private long orderId;
     private long customerId;
-    private double price;
+    private String client;
+    private BigDecimal price;
     private String status;
     private String paymentMethod;
     private List<OrderItems> orderItems;
@@ -25,6 +27,7 @@ public class OrderDto {
         return Order.builder()
                 .id(this.getOrderId())
                 .customerId(this.getCustomerId())
+                .client(this.getClient())
                 .price(this.getPrice())
                 .status(this.getStatus())
                 .paymentMethod(this.getPaymentMethod())
@@ -36,6 +39,7 @@ public class OrderDto {
         return OrderDto.builder()
                 .orderId(order.id())
                 .customerId(order.customerId())
+                .client(order.client())
                 .price(order.price())
                 .status(order.status())
                 .paymentMethod(order.paymentMethod())

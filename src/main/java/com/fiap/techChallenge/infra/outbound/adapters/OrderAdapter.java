@@ -1,16 +1,13 @@
 package com.fiap.techChallenge.infra.outbound.adapters;
 
 import com.fiap.techChallenge.application.core.domain.Order;
-import com.fiap.techChallenge.application.core.domain.OrderItems;
 import com.fiap.techChallenge.application.ports.out.OrderOutPort;
-import com.fiap.techChallenge.infra.outbound.repository.mariadb.OrderItemsRepository;
+import com.fiap.techChallenge.application.ports.out.PagamentoOutPort;
 import com.fiap.techChallenge.infra.outbound.repository.mariadb.OrderRepository;
 import com.fiap.techChallenge.infra.outbound.repository.mariadb.entity.OrderEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +17,10 @@ public class OrderAdapter implements OrderOutPort {
 
     private final OrderRepository orderRepository;
 
-    private final OrderItemsRepository orderItemsRepository;
     @Override
     public Order save(Order order) {
-        return orderRepository.save(new OrderEntity(order)).toDomain();
+
+        return orderRepository.save(OrderEntity.of(order)).toDomain();
     }
 
     @Override

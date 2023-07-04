@@ -3,10 +3,7 @@ package com.fiap.techChallenge.infra.outbound.repository.mariadb.entity;
 import com.fiap.techChallenge.application.core.domain.Order;
 import com.fiap.techChallenge.application.core.domain.OrderItems;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Entity
@@ -15,7 +12,7 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 @NoArgsConstructor
 @Getter
 @Setter
-
+@Builder
 public class OrderItemsEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +25,22 @@ public class OrderItemsEntity {
     @JoinColumn(name = "orderId")
     private OrderEntity orders;
 
-    public OrderItemsEntity(OrderItems items){
-        this(items.id(), items.productId(), items.description(), items.quantity(), null );
+    public static OrderItems converter(OrderItemsEntity entity){
+        return OrderItems.builder()
+                .id(entity.getId())
+                .orderId(entity.getOrders().getId())
+                .description(entity.getDescription())
+                .quantity(entity.getQuantity())
+                .productId(entity.getProductId())
+                .build();
+    }
+    public static OrderItemsEntity of(OrderItems orderItems, OrderEntity orderEntity){
+        return OrderItemsEntity.builder()
+                .orders(orderEntity)
+                .productId(orderItems.productId())
+                .description(orderItems.description())
+                .quantity(orderItems.quantity())
+                .build();
     }
 
     public OrderItems toDomain(){

@@ -3,12 +3,13 @@ package com.fiap.techChallenge.infra.outbound.repository.mariadb.entity;
 import com.fiap.techChallenge.application.core.domain.Order;
 import com.fiap.techChallenge.application.core.domain.OrderItems;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.beans.BeanUtils;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "orders")
@@ -16,31 +17,39 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class OrderEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long customerId;
-    private Double price;
+    private String client;
+    private BigDecimal price;
     private String status;
     private String paymentMethod;
     @OneToMany(mappedBy = "orders", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<OrderItemsEntity> orderItems;
 
-    public OrderEntity(Order order) {
-        this(order.id(), order.customerId(), order.price(), order.status(), order.paymentMethod(), null);
+    public static OrderEntity of(Order order){
+        var orderEntity = new OrderEntity();
+        BeanUtils.copyProperties(order, orderEntity);
+        orderEntity.setOrderItems(order.orderItems().stream().map(item -> OrderItemsEntity.of(item, orderEntity)).collect(Collectors.toList()));
+
+        return orderEntity;
     }
 
     public Order toDomain(){
         return Order.builder()
                 .id(this.id)
                 .customerId(this.customerId)
+                .client(this.client)
                 .price(this.price)
                 .status(this.status)
                 .paymentMethod(this.paymentMethod)
-                .orderItems(getOrderItems())
+                .orderItems(this.orderItems.stream().map(OrderItemsEntity::converter).collect(Collectors.toList()))
                 .build();
     }
+
 
 
 }
