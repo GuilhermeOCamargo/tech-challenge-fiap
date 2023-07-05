@@ -1,6 +1,6 @@
-package com.fiap.techChallenge.infrastructure.product;
+package com.fiap.techChallenge.infra.outbound.repository.mariadb;
 
-import com.fiap.techChallenge.infrastructure.product.ProductEntity;
+import com.fiap.techChallenge.infra.outbound.repository.mariadb.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
