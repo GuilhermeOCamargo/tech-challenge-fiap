@@ -1,6 +1,6 @@
-package com.fiap.techChallenge.infrastructure.product;
+package com.fiap.techChallenge.infra.outbound.repository.mariadb.entity;
 
-import com.fiap.techChallenge.domain.Product;
+import com.fiap.techChallenge.application.core.domain.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,12 +30,17 @@ public class ProductEntity {
     @ElementCollection
     private List<String> images;
 
-    public static ProductEntity createEntity(Product product) {
-        return ProductEntity.builder()
-                .price(product.getPrice())
-                .category(product.getCategory())
-                .description(product.getDescription())
-                .images(product.getImages())
+    public ProductEntity(Product product) {
+        this(product.id(), product.category(), product.price(), product.description(), product.images());
+    }
+
+    public Product toDomain() {
+        return Product.builder()
+                .id(this.id)
+                .price(this.price)
+                .category(this.category)
+                .description(this.description)
+                .images(this.images)
                 .build();
     }
 }

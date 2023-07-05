@@ -1,11 +1,10 @@
-package com.fiap.techChallenge.application.product;
+package com.fiap.techChallenge.application.ports.out;
 
-import com.fiap.techChallenge.domain.Product;
+import com.fiap.techChallenge.application.core.domain.Product;
 
 import java.util.List;
 
-public interface ProductService {
-
+public interface ProductOutPort {
     public Product saveProduct(Product product);
 
     public Product updateProduct(Product product);

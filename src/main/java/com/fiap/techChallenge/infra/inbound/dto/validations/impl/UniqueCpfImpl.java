@@ -1,7 +1,7 @@
 package com.fiap.techChallenge.infra.inbound.dto.validations.impl;
 
 import com.fiap.techChallenge.application.core.domain.Cpf;
-import com.fiap.techChallenge.application.core.exceptions.CustomerNotFoundException;
+import com.fiap.techChallenge.application.core.exceptions.NotFoundException;
 import com.fiap.techChallenge.application.ports.in.CustomerInPort;
 import com.fiap.techChallenge.infra.inbound.dto.validations.UniqueCpf;
 import jakarta.validation.ConstraintValidator;
@@ -26,7 +26,7 @@ public class UniqueCpfImpl implements ConstraintValidator<UniqueCpf, String> {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(message);
             return false;
-        } catch (CustomerNotFoundException e) {
+        } catch (NotFoundException e) {
             return true;
         }
     }
