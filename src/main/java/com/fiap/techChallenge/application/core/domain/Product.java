@@ -6,9 +6,9 @@ import lombok.Builder;
 
 import java.util.List;
 
-@Builder
 public record Product(Long id, String category, Double price, String description, List<String> images) {
 
+    @Builder
     public Product {
         if (Strings.isNullOrEmpty(description))
             throw new InvalidDataException("Invalid description");
