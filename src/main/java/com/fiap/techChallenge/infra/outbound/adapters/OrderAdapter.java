@@ -2,7 +2,6 @@ package com.fiap.techChallenge.infra.outbound.adapters;
 
 import com.fiap.techChallenge.application.core.domain.Order;
 import com.fiap.techChallenge.application.ports.out.OrderOutPort;
-import com.fiap.techChallenge.application.ports.out.PagamentoOutPort;
 import com.fiap.techChallenge.infra.outbound.repository.mariadb.OrderRepository;
 import com.fiap.techChallenge.infra.outbound.repository.mariadb.entity.OrderEntity;
 import lombok.AllArgsConstructor;
@@ -22,10 +21,9 @@ public class OrderAdapter implements OrderOutPort {
 
         return orderRepository.save(OrderEntity.of(order)).toDomain();
     }
-
     @Override
     public List<Order> findAll() {
         var orderList = orderRepository.findAll();
-        return orderList.stream().map(x -> x.toDomain()).collect(Collectors.toList());
+        return orderList.stream().map(order -> order.toDomain()).collect(Collectors.toList());
     }
 }

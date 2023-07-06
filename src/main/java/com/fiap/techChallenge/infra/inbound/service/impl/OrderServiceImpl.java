@@ -4,7 +4,7 @@ import com.fiap.techChallenge.application.core.domain.Order;
 import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
 import com.fiap.techChallenge.application.core.exceptions.PaymentNotAuthorizedException;
 import com.fiap.techChallenge.application.ports.in.OrderInPort;
-import com.fiap.techChallenge.application.ports.in.PagamentoInPort;
+import com.fiap.techChallenge.application.ports.in.PaymentInPort;
 import com.fiap.techChallenge.infra.inbound.dto.OrderDto;
 import com.fiap.techChallenge.infra.inbound.exception.DataInputException;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceNotFoundException;
@@ -14,7 +14,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,12 +23,12 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderInPort port;
-    private final PagamentoInPort pagamentoPort;
+    private final PaymentInPort pagamentoPort;
     public OrderDto insert(@Valid OrderDto orderdto) {
         try{
 
-            if(!pagamentoPort.RealizaPagamento(orderdto.toDomain()))
-                throw new DataInputException("Pagamento não autorizado");
+            if(!pagamentoPort.MakePayment(orderdto.toDomain()))
+                throw new PaymentNotAuthorizedException("Pagamento não autorizado");
 
             var order = port.insert(orderdto.toDomain());
             return orderdto.of(order);

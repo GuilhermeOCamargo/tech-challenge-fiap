@@ -1,10 +1,8 @@
 package com.fiap.techChallenge.config;
 
-import com.fiap.techChallenge.application.core.domain.Order;
 import com.fiap.techChallenge.application.core.service.CustomerInService;
 import com.fiap.techChallenge.application.core.service.OrderInService;
-import com.fiap.techChallenge.application.core.service.PagamentoInService;
-import com.fiap.techChallenge.application.ports.in.PagamentoInPort;
+import com.fiap.techChallenge.application.core.service.PaymentInService;
 import com.fiap.techChallenge.infra.outbound.adapters.CustomerAdapter;
 import com.fiap.techChallenge.infra.outbound.adapters.OrderAdapter;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +20,7 @@ public class BeanConfiguration {
         return new OrderInService(orderAdapter);
     }
     @Bean
-    public PagamentoInService pagamentoService(){
-        return new PagamentoInService();
+    public PaymentInService pagamentoService(){
+        return new PaymentInService();
     }
 }

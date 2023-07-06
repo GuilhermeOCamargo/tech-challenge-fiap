@@ -21,7 +21,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public OrderDto insertOrder(@RequestBody OrderDto orderDto){ return orderService.insert(orderDto);}
 
-    @GetMapping
+    @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDto> findAll(){
         return orderService.findAll();

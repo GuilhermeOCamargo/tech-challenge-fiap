@@ -1,9 +1,7 @@
 package com.fiap.techChallenge.application.core.service;
 
 import com.fiap.techChallenge.application.core.domain.Order;
-import com.fiap.techChallenge.application.core.exceptions.PaymentNotAuthorizedException;
 import com.fiap.techChallenge.application.ports.in.OrderInPort;
-import com.fiap.techChallenge.application.ports.in.PagamentoInPort;
 import com.fiap.techChallenge.application.ports.out.OrderOutPort;
 import lombok.AllArgsConstructor;
 
