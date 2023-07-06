@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class PaymentServiceImpl implements PaymentService {
 
     public boolean MakePayment(Order order) {
-        return false;
+        return true;
     }
 
 }

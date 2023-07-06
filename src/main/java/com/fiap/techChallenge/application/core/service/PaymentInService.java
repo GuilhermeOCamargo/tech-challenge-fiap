@@ -7,6 +7,6 @@ import com.fiap.techChallenge.application.ports.in.PaymentInPort;
 public class PaymentInService implements PaymentInPort {
     @Override
     public boolean MakePayment(Order order){
-        return false;
+        return true;
     }
 }
