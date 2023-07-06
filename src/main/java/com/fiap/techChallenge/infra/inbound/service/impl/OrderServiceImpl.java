@@ -7,6 +7,7 @@ import com.fiap.techChallenge.application.ports.in.OrderInPort;
 import com.fiap.techChallenge.application.ports.in.PaymentInPort;
 import com.fiap.techChallenge.infra.inbound.dto.OrderDto;
 import com.fiap.techChallenge.infra.inbound.exception.DataInputException;
+import com.fiap.techChallenge.infra.inbound.exception.PaymentException;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceNotFoundException;
 import com.fiap.techChallenge.infra.inbound.service.OrderService;
 import com.fiap.techChallenge.infrastructure.exceptions.NotFoundException;
@@ -24,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderInPort port;
     private final PaymentInPort pagamentoPort;
-    public OrderDto insert(@Valid OrderDto orderdto) {
+    public OrderDto insert(@Valid OrderDto orderdto) throws PaymentNotAuthorizedException {
         try{
 
             if(!pagamentoPort.MakePayment(orderdto.toDomain()))
@@ -32,8 +33,8 @@ public class OrderServiceImpl implements OrderService {
 
             var order = port.insert(orderdto.toDomain());
             return orderdto.of(order);
-        }catch (InvalidDataException e) {
-            throw new DataInputException(e.getMessage());
+        }catch (PaymentNotAuthorizedException e) {
+            throw new PaymentException(e.getMessage());
         }
     }
 
