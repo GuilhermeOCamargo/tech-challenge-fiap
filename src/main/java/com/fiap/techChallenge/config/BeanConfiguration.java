@@ -2,6 +2,7 @@ package com.fiap.techChallenge.config;
 
 import com.fiap.techChallenge.application.core.service.CustomerInService;
 import com.fiap.techChallenge.application.core.service.ProductInService;
+import com.fiap.techChallenge.application.ports.out.OrderOutPort;
 import com.fiap.techChallenge.application.ports.out.ProductOutPort;
 import com.fiap.techChallenge.application.core.service.OrderInService;
 import com.fiap.techChallenge.application.core.service.PaymentInService;
@@ -24,9 +25,12 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public PaymentInService pymentInService(){
+    public PaymentInService paymentInService(){
         return new PaymentInService();
     }
-}
 
+    @Bean
+    public OrderInService orderInService(OrderOutPort orderOutPort) {
+        return new OrderInService(orderOutPort);
+    }
 }

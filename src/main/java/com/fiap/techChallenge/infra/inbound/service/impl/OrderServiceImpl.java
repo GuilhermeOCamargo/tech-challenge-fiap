@@ -1,7 +1,7 @@
 package com.fiap.techChallenge.infra.inbound.service.impl;
 
 import com.fiap.techChallenge.application.core.domain.Order;
-import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
+import com.fiap.techChallenge.application.core.exceptions.NotFoundException;
 import com.fiap.techChallenge.application.core.exceptions.PaymentNotAuthorizedException;
 import com.fiap.techChallenge.application.ports.in.OrderInPort;
 import com.fiap.techChallenge.application.ports.in.PaymentInPort;
@@ -10,7 +10,6 @@ import com.fiap.techChallenge.infra.inbound.exception.DataInputException;
 import com.fiap.techChallenge.infra.inbound.exception.PaymentException;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceNotFoundException;
 import com.fiap.techChallenge.infra.inbound.service.OrderService;
-import com.fiap.techChallenge.infrastructure.exceptions.NotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
