@@ -1,8 +1,8 @@
      # Tech Challenge FIAP
 
 ### Subindo o ambiente
-Para rodar o ambiente completo (banco e aplicação) é necessário apenas rodar o comando `docker-compose up`.
-Caso já tenha as imagens criadas e queira atualizar o build para uma nova versão, execute o mesmo comando passando o parâmetro --build no final. Ex: `docker-compose up --build`.
+Para rodar o ambiente completo (banco e aplicação) é necessário apenas rodar o comando `docker-compose up -d`.
+Caso já tenha as imagens criadas e queira atualizar o build para uma nova versão, execute o mesmo comando passando o parâmetro --build no final. Ex: `docker-compose up -d --build`.
 
 Dessa forma o docker irá subir 2 containers rodando a aplicação e o banco de dados. Os containers são acessível através da network do docker.
 

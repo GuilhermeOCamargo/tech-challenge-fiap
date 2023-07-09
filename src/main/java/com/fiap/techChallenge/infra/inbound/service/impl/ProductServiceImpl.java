@@ -2,9 +2,11 @@ package com.fiap.techChallenge.infra.inbound.service.impl;
 
 import com.fiap.techChallenge.application.core.domain.Product;
 import com.fiap.techChallenge.application.core.exceptions.AlreadyExistsException;
+import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
 import com.fiap.techChallenge.application.core.exceptions.NotFoundException;
 import com.fiap.techChallenge.application.ports.in.ProductInPort;
 import com.fiap.techChallenge.infra.inbound.dto.ProductDto;
+import com.fiap.techChallenge.infra.inbound.exception.DataInputException;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceAlreadyExists;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceNotFoundException;
 import com.fiap.techChallenge.infra.inbound.service.ProductService;
@@ -29,6 +31,8 @@ public class ProductServiceImpl implements ProductService {
             return ProductDto.of(product);
         } catch (AlreadyExistsException e) {
             throw new ResourceAlreadyExists(e.getMessage());
+        } catch (InvalidDataException e) {
+            throw new DataInputException(e.getMessage());
         }
     }
 
@@ -39,6 +43,8 @@ public class ProductServiceImpl implements ProductService {
             return ProductDto.of(product);
         } catch (NotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
+        } catch (InvalidDataException e) {
+            throw new DataInputException(e.getMessage());
         }
     }
 
