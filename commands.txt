@@ -1,0 +1,3 @@
+kubectl create secret generic tech-challenge-db-user-secret --from-literal=MARIADB_USER={YOUR_USERNAME}
+kubectl create secret generic tech-challenge-db-password-secret --from-literal=MARIADB_PASSWORD={YOUR_PASSWORD}
+kubectl create secret generic tech-challenge-db-root-password-secret --from-literal=MARIADB_ROOT_PASSWORD={YOUR_ROOT_PASSWORD}
