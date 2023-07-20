@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tech-challenge-db-pod
+  labels:
+    app: tech-challenge-db-pod
+spec:
+  containers:
+    - name: tech-challenge-db-container
+      image: gcamargo1997/goc-tech-challenge-mariadb:1.0-k8s
+      ports:
+        - containerPort: 3306
+      env:
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: tech-challenge-db-root-password-secret
+              key: MARIADB_ROOT_PASSWORD
+  # imagePullSecrets:
+  #   - name: ecr-registry

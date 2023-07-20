@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: tech-challenge-app-config-map
+data:
+  MARIADB_URL: jdbc:mariadb://tech-challenge-db-svc/tech_challenge
+  SWAGGER_URL: /api-docs

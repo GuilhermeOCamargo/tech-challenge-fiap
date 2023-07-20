@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tech-challenge-app-svc
+spec:
+  selector:
+    app: tech-challenge-app-pod
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30100
