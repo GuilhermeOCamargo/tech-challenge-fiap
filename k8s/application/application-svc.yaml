@@ -4,7 +4,7 @@ metadata:
   name: tech-challenge-app-svc
 spec:
   selector:
-    app: tech-challenge-app-pod
+    app: tech-challenge-app-deployment
   type: NodePort
   ports:
   - port: 8080
