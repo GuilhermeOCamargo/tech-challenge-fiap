@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
-import static com.fiap.techChallenge.application.core.util.ConstantsUtil.ALREADY_EXISTS_USER;
+import static com.fiap.techChallenge.application.core.util.ConstantsUtil.ALREADY_EXISTS_CUSTOMER;
 import static com.fiap.techChallenge.application.core.util.ConstantsUtil.CUSTOMER_NOT_FOUND;
 
 @AllArgsConstructor
@@ -30,8 +30,8 @@ public class CustomerInService implements CustomerInPort {
     @Override
     public Customer insert(Customer customer) throws AlreadyExistsException {
         if(Objects.nonNull(port.findByCpf(customer.cpf())))
-            throw new AlreadyExistsException(ALREADY_EXISTS_USER);
+            throw new AlreadyExistsException(ALREADY_EXISTS_CUSTOMER);
 
-        return port.save(customer);
+        return port.save(customer.emptyId());
     }
 }

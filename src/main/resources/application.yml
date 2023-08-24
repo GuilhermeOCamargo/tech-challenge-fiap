@@ -17,6 +17,9 @@ server:
     context-path: /tech-challenge
   port: 8080
 
+springdoc:
+  swagger-ui:
+    path: /api-doc.html
 ---
 
 spring:
@@ -41,6 +44,9 @@ server:
     context-path: /tech-challenge
   port: 8080
 
+springdoc:
+  swagger-ui:
+    path: /api-doc.html
 ---
 spring:
   config:
@@ -63,3 +69,7 @@ server:
   servlet:
     context-path: /tech-challenge
   port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /api-doc.html
