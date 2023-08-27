@@ -10,8 +10,8 @@ public record Status(String value) {
     }
 
     public Boolean newStatusIsValid(Status newStatus){
-        StatusEnum actualStatusEnum = StatusEnum.valueOf(value.toUpperCase());
-        StatusEnum newStatusEnum = StatusEnum.valueOf(newStatus.value.toUpperCase());
+        StatusEnum actualStatusEnum = StatusEnum.valueOfIgnoreCase(value);
+        StatusEnum newStatusEnum = StatusEnum.valueOfIgnoreCase(newStatus.value);
 
         if(newStatusEnum.getBeforeStatus().equals(actualStatusEnum)){
             return true;

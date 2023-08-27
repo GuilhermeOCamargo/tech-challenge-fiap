@@ -71,6 +71,10 @@ public enum StatusEnum {
                 .collect(Collectors.toSet());
     }
 
+    public static StatusEnum valueOfIgnoreCase(String status){
+        return StatusEnum.valueOf(status.toUpperCase());
+    }
+
     public abstract StatusEnum getBeforeStatus();
 
 }

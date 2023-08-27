@@ -22,8 +22,8 @@ public class OrderInService implements OrderInPort {
 
     @Override
     public Order insert(Order order) {
-        if (!order.status().value().equals(StatusEnum.INICIADO.name().toLowerCase())) {
-            throw new InvalidDataException("Invalid Statuts to insert order");
+        if (!order.status().value().equalsIgnoreCase(StatusEnum.INICIADO.name())) {
+            throw new InvalidDataException("Invalid Status to insert order");
         }
         return orderOutPort.save(order);
     }

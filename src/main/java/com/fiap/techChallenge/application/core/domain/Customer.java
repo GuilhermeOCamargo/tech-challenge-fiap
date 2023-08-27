@@ -2,8 +2,8 @@ package com.fiap.techChallenge.application.core.domain;
 
 import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
 import com.google.common.base.Strings;
+
 import lombok.Builder;
-import lombok.Setter;
 
 public record Customer(Long id, Cpf cpf, Email email, String name) {
     public Customer{

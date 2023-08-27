@@ -1,5 +1,11 @@
 package com.fiap.techChallenge.infra.inbound.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.fiap.techChallenge.application.core.domain.Order;
 import com.fiap.techChallenge.application.core.domain.Status;
 import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
@@ -12,13 +18,9 @@ import com.fiap.techChallenge.infra.inbound.exception.DataInputException;
 import com.fiap.techChallenge.infra.inbound.exception.PaymentException;
 import com.fiap.techChallenge.infra.inbound.exception.ResourceNotFoundException;
 import com.fiap.techChallenge.infra.inbound.service.OrderService;
+
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
