@@ -1,6 +1,7 @@
 package com.fiap.techChallenge.application.core.service;
 
 import com.fiap.techChallenge.application.core.domain.Order;
+import com.fiap.techChallenge.application.core.domain.Status;
 import com.fiap.techChallenge.application.ports.out.OrderOutPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -40,8 +42,10 @@ public class OrderInServiceTest {
         return Order.builder()
                 .customerId(1L)
                 .price(new BigDecimal(20))
+                .status("iniciado")
                 .paymentMethod("CARTAO")
                 .client("Rodrigo")
+                .orderItems(new ArrayList<>())
                 .build();
     }
 }

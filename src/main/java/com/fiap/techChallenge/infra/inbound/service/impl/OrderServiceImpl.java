@@ -1,6 +1,8 @@
 package com.fiap.techChallenge.infra.inbound.service.impl;
 
 import com.fiap.techChallenge.application.core.domain.Order;
+import com.fiap.techChallenge.application.core.domain.Status;
+import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
 import com.fiap.techChallenge.application.core.exceptions.NotFoundException;
 import com.fiap.techChallenge.application.core.exceptions.PaymentNotAuthorizedException;
 import com.fiap.techChallenge.application.ports.in.OrderInPort;
@@ -24,25 +26,41 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderInPort port;
     private final PaymentInPort pagamentoPort;
-    public OrderDto insert(@Valid OrderDto orderdto) throws PaymentNotAuthorizedException {
-        try{
 
-            if(!pagamentoPort.MakePayment(orderdto.toDomain()))
+    public OrderDto insert(@Valid OrderDto orderdto) throws PaymentNotAuthorizedException {
+        try {
+
+            if (!pagamentoPort.MakePayment(orderdto.toDomain()))
                 throw new PaymentNotAuthorizedException("Pagamento não autorizado");
 
             var order = port.insert(orderdto.toDomain());
             return orderdto.of(order);
-        }catch (PaymentNotAuthorizedException e) {
+        } catch (PaymentNotAuthorizedException e) {
             throw new PaymentException(e.getMessage());
+        } catch (InvalidDataException e) {
+            throw new DataInputException(e.getMessage());
         }
     }
 
-    public List<OrderDto> findAll(){
+    public List<OrderDto> findAll() {
         try {
             List<Order> orders = port.findAll();
             return orders.stream().map(x -> OrderDto.of(x)).collect(Collectors.toList());
-        }catch (NotFoundException ex){
+        } catch (NotFoundException ex) {
             throw new ResourceNotFoundException(ex.getMessage());
         }
     }
+
+    @Override
+    public OrderDto updateStatus(Long id, String newStatus) {
+        try {
+            Order order = port.updateStatus(id, new Status(newStatus));
+            return OrderDto.of(order);
+        } catch (NotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (InvalidDataException e) {
+            throw new DataInputException(e.getMessage());
+        }
+    }
+
 }

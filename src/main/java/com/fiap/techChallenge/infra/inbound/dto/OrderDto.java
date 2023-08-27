@@ -2,12 +2,10 @@ package com.fiap.techChallenge.infra.inbound.dto;
 
 import com.fiap.techChallenge.application.core.domain.Order;
 import com.fiap.techChallenge.application.core.domain.OrderItems;
-import com.sun.jna.WString;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,7 +40,7 @@ public class OrderDto {
                 .customerId(order.customerId())
                 .client(order.client())
                 .price(order.price())
-                .status(order.status())
+                .status(order.status().value())
                 .paymentMethod(order.paymentMethod())
                 .orderItems(order.orderItems())
                 .build();
