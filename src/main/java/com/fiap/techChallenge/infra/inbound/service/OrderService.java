@@ -7,4 +7,5 @@ import java.util.List;
 public interface OrderService {
     OrderDto insert(OrderDto orderdto);
     List<OrderDto> findAll();
+    OrderDto findById(Long id);
 }

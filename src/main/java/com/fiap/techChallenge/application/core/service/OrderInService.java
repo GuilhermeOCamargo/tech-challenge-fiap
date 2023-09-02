@@ -21,4 +21,7 @@ public class OrderInService implements OrderInPort {
     public List<Order> findAll(){
         return orderOutPort.findAll();
     }
+
+    @Override
+    public Order findById(Long id){return orderOutPort.findById(id);}
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface OrderOutPort {
     Order save(Order order);
     List<Order> findAll();
+    Order findById(Long id);
 }

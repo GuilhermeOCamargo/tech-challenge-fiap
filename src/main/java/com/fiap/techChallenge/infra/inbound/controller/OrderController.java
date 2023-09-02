@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,9 @@ public class OrderController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto insertOrder(@RequestBody OrderDto orderDto){ return orderService.insert(orderDto);}
+    public OrderDto insertOrder(@RequestBody OrderDto orderDto) {
+        return orderService.insert(orderDto);
+    }
 
     @Operation(summary = "Consultar pedidos")
     @ApiResponses(value = {
@@ -58,7 +61,13 @@ public class OrderController {
     })
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderDto> findAll(){
+    public List<OrderDto> findAll() {
         return orderService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public OrderDto findById(@Valid @PathVariable Long id){
+        return orderService.findById(id);
     }
 }

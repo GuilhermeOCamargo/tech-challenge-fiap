@@ -12,6 +12,7 @@ import com.fiap.techChallenge.infra.inbound.exception.ResourceNotFoundException;
 import com.fiap.techChallenge.infra.inbound.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +24,12 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderInPort port;
-    private final PaymentInPort pagamentoPort;
+    private final PaymentInPort paymentInPort;
     public OrderDto insert(@Valid OrderDto orderdto) throws PaymentNotAuthorizedException {
         try{
 
-            if(!pagamentoPort.MakePayment(orderdto.toDomain()))
-                throw new PaymentNotAuthorizedException("Pagamento não autorizado");
+            if(!paymentInPort.MakePayment(orderdto.toDomain()))
+                throw new PaymentNotAuthorizedException("Payment not authorized");
 
             var order = port.insert(orderdto.toDomain());
             return orderdto.of(order);
@@ -40,7 +41,20 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> findAll(){
         try {
             List<Order> orders = port.findAll();
-            return orders.stream().map(x -> OrderDto.of(x)).collect(Collectors.toList());
+
+            var finalList = orders.stream().map(x -> OrderDto.of(x)).collect(Collectors.toList());
+
+            return  finalList;
+
+        }catch (NotFoundException ex){
+            throw new ResourceNotFoundException(ex.getMessage());
+        }
+    }
+
+    public OrderDto findById(Long id){
+        try {
+            Order order = port.findById(id);
+            return OrderDto.of(order);
         }catch (NotFoundException ex){
             throw new ResourceNotFoundException(ex.getMessage());
         }

@@ -7,6 +7,8 @@ import com.fiap.techChallenge.infra.outbound.repository.mariadb.entity.OrderEnti
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,5 +27,10 @@ public class OrderAdapter implements OrderOutPort {
     public List<Order> findAll() {
         var orderList = orderRepository.findAll();
         return orderList.stream().map(order -> order.toDomain()).collect(Collectors.toList());
+    }
+    @Override
+    public Order findById(Long id){
+        var order = orderRepository.findById(id);
+        return order.get().toDomain();
     }
 }
