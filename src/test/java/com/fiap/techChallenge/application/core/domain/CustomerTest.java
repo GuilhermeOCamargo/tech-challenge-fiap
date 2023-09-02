@@ -1,6 +1,7 @@
 package com.fiap.techChallenge.application.core.domain;
 
-import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
+import com.fiap.techChallenge.domain.Customer;
+import com.fiap.techChallenge.domain.exceptions.InvalidDataException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
