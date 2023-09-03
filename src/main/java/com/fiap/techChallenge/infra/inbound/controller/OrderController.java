@@ -53,7 +53,7 @@ public class OrderController {
 
     @Operation(summary = "Consultar pedidos")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "20", description = "Pedidos encontrados", content = {
+            @ApiResponse(responseCode = "200", description = "Pedidos encontrados", content = {
                     @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = OrderDto.class)))
             }),
             @ApiResponse(responseCode = "404", description = "Nenhum pedido encontrado", content = {
