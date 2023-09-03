@@ -14,3 +14,4 @@ sleep 90
 kubectl apply -f ./application/application-config-map.yaml
 kubectl apply -f ./application/application-deployment.yaml
 kubectl apply -f ./application/application-svc.yaml
+kubectl apply -f ./application/application-hpa.yaml
