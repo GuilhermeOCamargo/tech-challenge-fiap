@@ -25,10 +25,10 @@ spec:
                 secretKeyRef:
                   name: tech-challenge-db-root-password-secret
                   key: MARIADB_ROOT_PASSWORD
-      #     volumeMounts:
-      #       - name: mariadb-persistent-storage
-      #         mountPath: /var/lib/mysql
-      # volumes:
-      #   - name: mariadb-persistent-storage
-      #     persistentVolumeClaim:
-      #       claimName: tech-challenge-db-pvc
+          volumeMounts:
+            - name: mariadb-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mariadb-persistent-storage
+          persistentVolumeClaim:
+            claimName: tech-challenge-db-pvc
