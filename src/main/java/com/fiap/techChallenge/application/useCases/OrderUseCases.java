@@ -3,10 +3,8 @@ package com.fiap.techChallenge.application.useCases;
 import com.fiap.techChallenge.application.services.OrderService;
 import com.fiap.techChallenge.application.services.PaymentService;
 import com.fiap.techChallenge.domain.Order;
-import com.fiap.techChallenge.domain.exceptions.NotFoundException;
-import com.fiap.techChallenge.domain.exceptions.PaymentException;
-import com.fiap.techChallenge.domain.exceptions.PaymentNotAuthorizedException;
-import com.fiap.techChallenge.domain.exceptions.ResourceNotFoundException;
+import com.fiap.techChallenge.domain.Status;
+import com.fiap.techChallenge.domain.exceptions.*;
 import com.fiap.techChallenge.presentation.dtos.OrderDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -41,6 +39,17 @@ public class OrderUseCases {
             return orders.stream().map(x -> OrderDto.of(x)).collect(Collectors.toList());
         }catch (NotFoundException ex){
             throw new ResourceNotFoundException(ex.getMessage());
+        }
+    }
+
+    public OrderDto updateStatus(Long id, String newStatus) {
+        try {
+            Order order = orderService.updateStatus(id, new Status(newStatus));
+            return OrderDto.of(order);
+        } catch (NotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (InvalidDataException e) {
+            throw new DataInputException(e.getMessage());
         }
     }
 }

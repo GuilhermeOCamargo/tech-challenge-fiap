@@ -32,6 +32,7 @@ public class OrderEntity {
     public static OrderEntity of(Order order) {
         var orderEntity = new OrderEntity();
         BeanUtils.copyProperties(order, orderEntity);
+        orderEntity.setStatus(order.status().value());
         orderEntity.setOrderItems(order.orderItems().stream().map(item -> OrderItemsEntity.of(item, orderEntity)).collect(Collectors.toList()));
 
         return orderEntity;

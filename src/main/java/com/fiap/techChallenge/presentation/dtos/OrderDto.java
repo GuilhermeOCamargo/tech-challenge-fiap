@@ -40,7 +40,7 @@ public class OrderDto {
                 .customerId(order.customerId())
                 .client(order.client())
                 .price(order.price())
-                .status(order.status())
+                .status(order.status().value())
                 .paymentMethod(order.paymentMethod())
                 .orderItems(order.orderItems())
                 .build();
