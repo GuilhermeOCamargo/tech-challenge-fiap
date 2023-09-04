@@ -1,4 +1,24 @@
-     # Tech Challenge FIAP
+# Tech Challenge FIAP
+
+## Segunda Entrega - Kubernetes
+
+### Subindo o ambiente
+O pré-requisito para rodar o ambiente completo (banco e aplicação) é necessário ter um ambimente Kubernetes (k8s ou k3s) configurado, preferencialmente em sistema operacional Linux.
+
+Outro pré-requisito é ter em mãos o nome do node que será destinado para armazenamento do "PV". Para recuperar o nome (NAME) dos nodes do cluster, utilize o comando `kubectl get nodes`. Substituir, se necessário, o nome do node recuperado pelo nome fixado na linha 23 do arquivo `k8s/database/database-deployment.yaml`
+
+Para executar a aplicação basta executar o arquivo `k8s/init.sh`.
+
+Para testar a execução, faça a seguinte chamada http: `curl --location --request GET 'http://localhost:30100/tech-challenge/health'`.
+
+A aplicação deve responder com:
+`Status Code 200 {"status":"OK"}`
+
+### Subindo os pods individualmente
+Caso deseje subir somente o pod da aplicação ou o banco individualmente, pode-se usar os manifestos da pasta k8s/pod, lembrando de aplicar as secrets, caso não existam no kubernetes, que estão no arquivo k8s/init.sh
+
+
+## Primeira Entrega - Docker
 
 ### Subindo o ambiente
 Para rodar o ambiente completo (banco e aplicação) é necessário apenas rodar o comando `docker-compose up -d`.

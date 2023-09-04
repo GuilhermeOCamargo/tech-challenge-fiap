@@ -11,8 +11,8 @@ spec:
     - ReadWriteOnce
   storageClassName: local-storage
   persistentVolumeReclaimPolicy: Retain
-  local:
-    path: /home/guilherme/Documents/pessoal/tech-challenge-db
+  hostPath:
+    path: /tmp/tech-challenge-db
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -20,4 +20,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - minikube
+          - amylee
