@@ -5,7 +5,6 @@ metadata:
   labels:
     app:  tech-challenge-app-deployment
 spec:
-  #  replicas: 2
   selector:
     matchLabels:
       app: tech-challenge-app-deployment
@@ -16,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tech-challenge-app-container
-          image: gcamargo1997/goc-tech-challenge-api:1.1-k8s
+          image: gcamargo1997/goc-tech-challenge-api:latest
           ports:
             - containerPort: 8080
           env:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tech-challenge-db-container
-          image: gcamargo1997/goc-tech-challenge-mariadb:1.0-k8s
+          image: gcamargo1997/goc-tech-challenge-mariadb:latest
           ports:
             - containerPort: 3306
           env:
@@ -25,10 +25,4 @@ spec:
                 secretKeyRef:
                   name: tech-challenge-db-root-password-secret
                   key: MARIADB_ROOT_PASSWORD
-          volumeMounts:
-            - name: mariadb-persistent-storage
-              mountPath: /var/lib/mysql
-      volumes:
-        - name: mariadb-persistent-storage
-          persistentVolumeClaim:
-            claimName: tech-challenge-db-pvc
+          
