@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.fiap.techChallenge.infrastructure.exceptions")
-@ComponentScan(basePackages = {"com.fiap.techChallenge.infrastructure.exceptions","com.fiap.techChallenge.application" })
+@ComponentScan(basePackages = {"com.fiap.techChallenge.domain.exceptions","com.fiap.techChallenge.application", "com.fiap.techChallenge.presentation",
+		"com.fiap.techChallenge.gateway.repository" })
 public class Application {
 
 	public static void main(String[] args) {

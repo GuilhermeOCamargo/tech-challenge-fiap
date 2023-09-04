@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.util.Set;
 
+import com.fiap.techChallenge.domain.Status;
+import com.fiap.techChallenge.domain.exceptions.InvalidDataException;
 import org.junit.jupiter.api.Test;
 
-import com.fiap.techChallenge.application.core.enums.StatusEnum;
-import com.fiap.techChallenge.application.core.exceptions.InvalidDataException;
+import com.fiap.techChallenge.application.enums.StatusEnum;
 
 public class StatusTest {
 
@@ -44,7 +45,4 @@ public class StatusTest {
         assertEquals(INVALID_STATUS_MESSAGE + VALID_STATUS, receivedException.getMessage(),
                 "Exception message different than expected!");
     }
-
-
-
 }
