@@ -11,7 +11,7 @@ Para essa fase da aplicação é necessário a utilização de um cluster Kubern
 
 No cluster é necessário que o “Kubernetes Metrics Server” esteja devidamente configurado para que o recurso “Horizontal Pod Autoscaling” (HPA), utilizado no “deployment” da aplicação funcione corretamente.
     
-Para executar a aplicação basta executar o arquivo `k8s/init.sh`.
+Para executar a aplicação basta executar o arquivo `k8s_deploy.sh`.
 
 Para testar a execução, faça a seguinte chamada http: `curl --location --request GET 'http://localhost:30100/tech-challenge/health'`.
 

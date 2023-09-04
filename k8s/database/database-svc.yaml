@@ -5,8 +5,7 @@ metadata:
 spec:
   selector:
     app: tech-challenge-db-deployment
-  type: NodePort
+  type: ClusterIP
   ports:
   - port: 3306
     targetPort: 3306
-    nodePort: 30200
