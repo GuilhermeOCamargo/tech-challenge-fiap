@@ -26,6 +26,7 @@ public class OrderAdapter implements OrderOutPort {
     @Override
     public List<Order> findAll() {
         var orderList = orderRepository.findAll();
+
         return orderList.stream().map(order -> order.toDomain()).collect(Collectors.toList());
     }
     @Override

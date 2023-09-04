@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,13 +29,13 @@ public class OrderEntity {
     private String status;
     private String paymentMethod;
     @OneToMany(mappedBy = "orders", orphanRemoval = true, cascade = CascadeType.ALL)
+
     private List<OrderItemsEntity> orderItems;
 
     public static OrderEntity of(Order order){
         var orderEntity = new OrderEntity();
         BeanUtils.copyProperties(order, orderEntity);
         orderEntity.setOrderItems(order.orderItems().stream().map(item -> OrderItemsEntity.of(item, orderEntity)).collect(Collectors.toList()));
-
         return orderEntity;
     }
 
