@@ -3,10 +3,14 @@
 ## Segunda Entrega - Kubernetes
 
 ### Subindo o ambiente
-O pré-requisito para rodar o ambiente completo (banco e aplicação) é necessário ter um ambimente Kubernetes (k8s ou k3s) configurado, preferencialmente em sistema operacional Linux.
+Para essa fase da aplicação é necessário a utilização de um cluster Kubernetes em sistema operacional Linux com acesso a internet. Podendo ser usado a versão “light” do Kubernetes denominada K3S ou sua versão full denominada K8S.
 
-Outro pré-requisito é ter em mãos o nome do node que será destinado para armazenamento do "PV". Para recuperar o nome (NAME) dos nodes do cluster, utilize o comando `kubectl get nodes`. Substituir, se necessário, o nome do node recuperado pelo nome fixado na linha 23 do arquivo `k8s/database/database-deployment.yaml`
+É imprescindível que a aplicação (comando) “kubectl” esteja devidamente configurada e o usuário que fará uso desse comando tenha as permissões necessárias.
 
+É necessário um ajuste no arquivo “k8s/volumes/database-pv.yaml”, na linha 23 (última linha do arquivo). Esse ajuste é a definição do nome do “node” onde o PV será alocado. Para recuperar os nomes dos nodes do cluster, basta usar o comando “kubectl get nodes” e recuperar o nome do node desejado na coluna NAME.
+
+No cluster é necessário que o “Kubernetes Metrics Server” esteja devidamente configurado para que o recurso “Horizontal Pod Autoscaling” (HPA), utilizado no “deployment” da aplicação funcione corretamente.
+    
 Para executar a aplicação basta executar o arquivo `k8s/init.sh`.
 
 Para testar a execução, faça a seguinte chamada http: `curl --location --request GET 'http://localhost:30100/tech-challenge/health'`.
