@@ -4,7 +4,6 @@ import com.fiap.techChallenge.domain.Order;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +26,7 @@ public class OrderEntity {
     private String status;
     private String paymentMethod;
     @OneToMany(mappedBy = "orders", orphanRemoval = true, cascade = CascadeType.ALL)
+
     private List<OrderItemsEntity> orderItems;
 
     public static OrderEntity of(Order order) {
@@ -34,7 +34,6 @@ public class OrderEntity {
         BeanUtils.copyProperties(order, orderEntity);
         orderEntity.setStatus(order.status().value());
         orderEntity.setOrderItems(order.orderItems().stream().map(item -> OrderItemsEntity.of(item, orderEntity)).collect(Collectors.toList()));
-
         return orderEntity;
     }
 

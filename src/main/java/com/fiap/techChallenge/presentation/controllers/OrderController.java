@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,5 +75,10 @@ public class OrderController {
     public ResponseEntity<OrderDto> updateOrderStatus(@PathVariable(name = "id") Long id,
             @PathVariable(name = "status") String newStatus) {
         return ResponseEntity.status(HttpStatus.OK).body(orderUseCases.updateStatus(id, newStatus));
+    }
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public OrderDto findById(@Valid @PathVariable Long id){
+        return orderUseCases.findById(id);
     }
 }

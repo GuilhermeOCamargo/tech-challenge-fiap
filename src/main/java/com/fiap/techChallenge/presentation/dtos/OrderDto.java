@@ -34,7 +34,7 @@ public class OrderDto {
                 .build();
     }
 
-    public static OrderDto of(Order order){
+    public static OrderDto of(Order order) {
         return OrderDto.builder()
                 .orderId(order.id())
                 .customerId(order.customerId())
@@ -43,6 +43,7 @@ public class OrderDto {
                 .status(order.status().value())
                 .paymentMethod(order.paymentMethod())
                 .orderItems(order.orderItems())
+
                 .build();
     }
 }

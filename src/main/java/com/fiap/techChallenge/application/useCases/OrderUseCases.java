@@ -52,4 +52,13 @@ public class OrderUseCases {
             throw new DataInputException(e.getMessage());
         }
     }
+
+    public OrderDto findById(Long id){
+        try {
+            Order order = orderService.findById(id);
+            return OrderDto.of(order);
+        }catch (NotFoundException ex){
+            throw new ResourceNotFoundException(ex.getMessage());
+        }
+    }
 }
