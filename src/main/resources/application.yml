@@ -1,4 +1,9 @@
 spring:
+  profiles:
+    default: local
+---
+
+spring:
   config:
     activate:
       on-profile: prd
