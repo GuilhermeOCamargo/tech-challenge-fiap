@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tech-challenge-app-pod
+  labels:
+    app: tech-challenge-app-pod
+spec:
+  containers:
+    - name: tech-challenge-app-container
+      image: gcamargo1997/goc-tech-challenge-api:1.1-k8s
+      ports:
+        - containerPort: 8080
+      env:
+        - name: MARIADB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: tech-challenge-app-config-map
+              key: MARIADB_URL
+        - name: SWAGGER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: tech-challenge-app-config-map
+              key: SWAGGER_URL
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: tech-challenge-db-user-secret
+              key: MARIADB_USER
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: tech-challenge-db-password-secret
+              key: MARIADB_PASSWORD
+
+  # imagePullSecrets:
+  #   - name: techchallenge

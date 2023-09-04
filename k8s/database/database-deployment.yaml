@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  tech-challenge-db-deployment
+  labels:
+    app:  tech-challenge-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tech-challenge-db-deployment
+  template:
+    metadata:
+      labels:
+        app:  tech-challenge-db-deployment
+    spec:
+      containers:
+        - name: tech-challenge-db-container
+          image: gcamargo1997/goc-tech-challenge-mariadb:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tech-challenge-db-root-password-secret
+                  key: MARIADB_ROOT_PASSWORD
+          

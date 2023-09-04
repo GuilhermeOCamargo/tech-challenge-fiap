@@ -1,4 +1,28 @@
-     # Tech Challenge FIAP
+# Tech Challenge FIAP
+
+## Segunda Entrega - Kubernetes
+
+### Subindo o ambiente
+Para essa fase da aplicação é necessário a utilização de um cluster Kubernetes em sistema operacional Linux com acesso a internet. Podendo ser usado a versão “light” do Kubernetes denominada K3S ou sua versão full denominada K8S.
+
+É imprescindível que a aplicação (comando) “kubectl” esteja devidamente configurada e o usuário que fará uso desse comando tenha as permissões necessárias.
+
+É necessário um ajuste no arquivo “k8s/volumes/database-pv.yaml”, na linha 23 (última linha do arquivo). Esse ajuste é a definição do nome do “node” onde o PV será alocado. Para recuperar os nomes dos nodes do cluster, basta usar o comando “kubectl get nodes” e recuperar o nome do node desejado na coluna NAME.
+
+No cluster é necessário que o “Kubernetes Metrics Server” esteja devidamente configurado para que o recurso “Horizontal Pod Autoscaling” (HPA), utilizado no “deployment” da aplicação funcione corretamente.
+    
+Para executar a aplicação basta executar o arquivo `k8s/init.sh`.
+
+Para testar a execução, faça a seguinte chamada http: `curl --location --request GET 'http://localhost:30100/tech-challenge/health'`.
+
+A aplicação deve responder com:
+`Status Code 200 {"status":"OK"}`
+
+### Subindo os pods individualmente
+Caso deseje subir somente o pod da aplicação ou o banco individualmente, pode-se usar os manifestos da pasta k8s/pod, lembrando de aplicar as secrets, caso não existam no kubernetes, que estão no arquivo k8s/init.sh
+
+
+## Primeira Entrega - Docker
 
 ### Subindo o ambiente
 Para rodar o ambiente completo (banco e aplicação) é necessário apenas rodar o comando `docker-compose up -d`.

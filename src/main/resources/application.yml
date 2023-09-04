@@ -8,10 +8,10 @@ spring:
     activate:
       on-profile: prd
   datasource:
-    url: jdbc:mariadb://tech_challenge_db:3306/tech_challenge
+    url: ${MARIADB_URL}
     driver-class-name: org.mariadb.jdbc.Driver
-    username: application_user
-    password: SENHA123
+    username: ${MARIADB_USER}
+    password: ${MARIADB_PASSWORD}
   jpa:
     database-platform: org.hibernate.dialect.MariaDB103Dialect
     hibernate:
@@ -24,7 +24,7 @@ server:
 
 springdoc:
   swagger-ui:
-    path: /api-doc.html
+    path: ${SWAGGER_URL}
 ---
 
 spring:
