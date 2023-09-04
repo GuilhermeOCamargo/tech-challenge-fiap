@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findAll() {
-        var orderList = orderRepository.findAll();
+        var orderList = orderRepository.findOrders();
         return orderList.stream().map(order -> order.toDomain()).collect(Collectors.toList());
     }
 
