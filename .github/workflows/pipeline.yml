@@ -17,4 +17,4 @@ jobs:
           distribution: 'corretto' # See 'Supported distributions' for available options
           java-version: '17'
       - name: Run tests
-        run: ./grdlew clean test
+        run: ./gradlew clean test
