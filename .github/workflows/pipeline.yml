@@ -50,6 +50,7 @@ jobs:
           else
             DOCKER_TAG="${{env.BRANCH_NAME}}-latest"
           fi
+          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
