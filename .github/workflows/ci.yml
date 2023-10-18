@@ -8,6 +8,9 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+    env:
+      JACOCO_COVERAGE_OVERALL: 95
+      JACOCO_COVERAGE_CHANGED_FILES: 95
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,4 +22,38 @@ jobs:
           distribution: 'corretto' # See 'Supported distributions' for available options
           java-version: '17'
       - name: Run tests
-        run: ./gradlew clean test
+        run: ./gradlew clean test jacocoTestReport
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.2
+        with:
+          paths: ${{ github.workspace }}/build/jacoco/test/jacocoTestReport.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: ${{env.JACOCO_COVERAGE_OVERALL}}
+          min-coverage-changed-files: ${{env.JACOCO_COVERAGE_CHANGED_FILES}}
+      - run: echo "${{ steps.jacoco.outputs.coverage-overall }}"
+      - run: echo "${{ steps.jacoco.outputs.coverage-changed-files }}"
+      - name: Fail Overall Coverage
+        if: steps.jacoco.outputs.coverage-overall < ${{env.JACOCO_COVERAGE_OVERALL}}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            core.setFailed('Overal Coverage less than required!')
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '![](https://i.gifer.com/13My.gif)\n\nFaltou teste nesse projeto ai'
+            })
+      - name: Fail Changed Files Coverage
+        if: steps.jacoco.outputs.coverage-changed-files < ${{env.JACOCO_COVERAGE_CHANGED_FILES}}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            core.setFailed('Changed Files Coverage less than required!')
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '![](https://i.gifer.com/13My.gif)\n\nFaltou teste nesses arquivos ai'
+            })
