@@ -34,8 +34,10 @@ jobs:
           min-coverage-overall: ${{env.JACOCO_COVERAGE_OVERALL}}
           min-coverage-changed-files: ${{env.JACOCO_COVERAGE_CHANGED_FILES}}
           title: '# :lobster: Coverage Report'
-      - run: echo "${{ steps.jacoco.outputs.coverage-overall }}"
-      - run: echo "${{ steps.jacoco.outputs.coverage-changed-files }}"
+
+      - run: echo "Expected overall coverage ${{env.JACOCO_COVERAGE_OVERALL}}. Jacoco Coverage ${{ steps.jacoco.outputs.coverage-overall }}"
+      - run: echo "Expected changed files coverage ${{env.JACOCO_COVERAGE_CHANGED_FILES}}. Jacoco Coverage${{ steps.jacoco.outputs.coverage-changed-files }}"
+
       - name: Fail Overall Coverage
         if: steps.jacoco.outputs.coverage-overall < ${{env.JACOCO_COVERAGE_OVERALL}}
         uses: actions/github-script@v5
@@ -60,7 +62,3 @@ jobs:
               repo: context.repo.repo,
               body: '![](https://i.gifer.com/origin/fb/fbecb86c26733a655325b3bef320069a_w200.gif)\n\nFaltou teste nesses arquivos ai'
             })
-            
-            
-            
-            <iframe src="https://gifer.com/embed/13My" width=480 height=503.547 frameBorder="0" allowFullScreen></iframe><p><a href="https://gifer.com">através de GIFER</a></p>
