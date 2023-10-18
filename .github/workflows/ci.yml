@@ -39,7 +39,7 @@ jobs:
       - run: echo "Expected changed files coverage ${{env.JACOCO_COVERAGE_CHANGED_FILES}}. Jacoco Coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
 
       - name: Fail Overall Coverage
-        if: ${{steps.jacoco.outputs.coverage-overall < 50}}
+        if: steps.jacoco.outputs.coverage-overall < 50
         uses: actions/github-script@v5
         with:
           script: |
@@ -51,7 +51,7 @@ jobs:
               body: '![](https://i.gifer.com/origin/fb/fbecb86c26733a655325b3bef320069a_w200.gif)\n\nFaltou teste nesse projeto ai'
             })
       - name: Fail Changed Files Coverage
-        if: ${{steps.jacoco.outputs.coverage-changed-files < 80}}
+        if: steps.jacoco.outputs.coverage-changed-files < 80
         uses: actions/github-script@v5
         with:
           script: |
