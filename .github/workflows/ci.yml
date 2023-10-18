@@ -39,7 +39,7 @@ jobs:
       - run: echo "Expected changed files coverage ${{env.JACOCO_COVERAGE_CHANGED_FILES}}. Jacoco Coverage${{ steps.jacoco.outputs.coverage-changed-files }}"
 
       - name: Fail Overall Coverage
-        if: steps.jacoco.outputs.coverage-overall < ${{env.JACOCO_COVERAGE_OVERALL}}
+        if: ${{steps.jacoco.outputs.coverage-overall}} < ${{env.JACOCO_COVERAGE_OVERALL}}
         uses: actions/github-script@v5
         with:
           script: |
