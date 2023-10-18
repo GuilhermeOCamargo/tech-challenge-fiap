@@ -58,7 +58,6 @@ jacocoTestReport {
                     fileTree(dir: it, exclude: [
                             'com/fiap/techChallenge/application/enums/**',
                             'com/fiap/techChallenge/gateway/**',
-                            'com/fiap/techChallenge/domain/**',
                             'com/fiap/techChallenge/util/**'
                     ])
                 })
