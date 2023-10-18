@@ -5,6 +5,8 @@ on:
       - 'develop'
       - 'release'
       - 'main'
+permissions:
+  pull-requests: read|write
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -31,6 +33,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: ${{env.JACOCO_COVERAGE_OVERALL}}
           min-coverage-changed-files: ${{env.JACOCO_COVERAGE_CHANGED_FILES}}
+          title: '# :lobster: Coverage Report'
       - run: echo "${{ steps.jacoco.outputs.coverage-overall }}"
       - run: echo "${{ steps.jacoco.outputs.coverage-changed-files }}"
       - name: Fail Overall Coverage
