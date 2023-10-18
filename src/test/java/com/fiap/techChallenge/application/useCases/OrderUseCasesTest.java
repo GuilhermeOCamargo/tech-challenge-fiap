@@ -1,4 +1,4 @@
-package com.fiap.techChallenge.application.core.useCases;
+package com.fiap.techChallenge.application.useCases;
 
 import com.fiap.techChallenge.application.services.OrderService;
 import com.fiap.techChallenge.application.services.PaymentService;
