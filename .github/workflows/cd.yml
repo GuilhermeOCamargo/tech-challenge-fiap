@@ -61,9 +61,10 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ env.APP_NAME }}
         DEPLOYMENT_NAME: "tech-challenge-app-deployment"
+        CONTAINER_NAME: "tech-challenge-app-container"
         IMAGE_TAG: ${{ env.DOCKER_TAG}}
       with:
-        args: set image deployment/$DEPLOYMENT_NAME $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        args: set image deployment/$DEPLOYMENT_NAME $CONTAINER_NAME=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
     - name: verify deployment
       uses: kodermax/kubectl-aws-eks@master
