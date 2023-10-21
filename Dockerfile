@@ -9,4 +9,4 @@ ENV MARIADB_USER="database_user"
 ENV MARIADB_PASSWORD="database_password"
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=prd", "-Xmx512m", "-Xms512m", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=local", "-Xmx512m", "-Xms512m", "-jar", "app.jar"]
