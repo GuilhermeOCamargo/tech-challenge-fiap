@@ -63,12 +63,12 @@ jobs:
         DEPLOYMENT_NAME: "tech-challenge-app-deployment"
         IMAGE_TAG: ${{ env.DOCKER_TAG}}
       with:
-        args: set image deployment/$ECR_REPOSITORY $DEPLOYMENT_NAME=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        args: set image deployment/$DEPLOYMENT_NAME $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
     - name: verify deployment
       uses: kodermax/kubectl-aws-eks@master
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
       with:
-        args: rollout status deployment/tech-challenge-app-deployment
+        args: rollout status deployment/my-app
         
