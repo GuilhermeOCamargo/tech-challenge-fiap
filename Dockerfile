@@ -1,7 +1,7 @@
 FROM amazoncorretto:17
 
 COPY . .
-RUN mkdir /var/log/tech-challenge-api && chmod 777 -R /var/log/tech-challenge-api
+#RUN mkdir /var/log/tech-challenge-api && chmod 777 -R /var/log/tech-challenge-api
 RUN ./gradlew clean build && cd build/libs && mv techChallenge-* app.jar
 WORKDIR build/libs
 ENV MARIADB_URL="database_url"
