@@ -69,4 +69,4 @@ jobs:
       with:
         task-definition: ${{ steps.render-web-container.outputs.task-definition }}:${{ env.DOCKER_TAG}}
         service: ${{ env.ECS_SERVICE }}
-        cluster: ${{ ECS_CLUSTER }}
+        cluster: ${{ env.ECS_CLUSTER }}
