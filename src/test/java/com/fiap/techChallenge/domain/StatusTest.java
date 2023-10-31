@@ -1,4 +1,4 @@
-package com.fiap.techChallenge.application.core.domain;
+package com.fiap.techChallenge.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;

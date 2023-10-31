@@ -20,4 +20,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - minikube
+          - ip-10-0-1-102.ec2.internal
