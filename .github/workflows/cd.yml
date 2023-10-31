@@ -20,9 +20,9 @@ jobs:
         run: |
           if [[ ${{env.BRANCH_NAME}} == 'main' ]]
           then
-            DOCKER_TAG="latest"
+            DOCKER_TAG="latest-${{ github.sha }}"
           else
-            DOCKER_TAG="${{env.BRANCH_NAME}}-latest"
+            DOCKER_TAG="${{env.BRANCH_NAME}}-latest${{ github.sha }}"
           fi
           echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
       - name: Docker Tag
@@ -55,11 +55,15 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
+    - name: Download task definition
+      run: |
+        aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
+
     - name: Render Amazon ECS task definition
       id: render-web-container
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ${{ env.ECS_TASK_DEFINITION }}
+        task-definition: task-definition.json
         container-name: ${{ env.CONTAINER_NAME }}
         image: ${{ steps.login-ecr.outputs.registry }}
         environment-variables: "LOG_LEVEL=info"
