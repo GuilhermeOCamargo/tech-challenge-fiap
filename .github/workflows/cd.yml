@@ -38,8 +38,8 @@ jobs:
           image: ${{ env.APP_NAME }}:${{ env.DOCKER_TAG}}
 
       - name: Download task definition
-          run: |
-            aws ecs describe-task-definition --task-definition "${{ secrets.ECS_TASK_DEFINITION }}" --query taskDefinition > task-definition.json
+        run: |
+          aws ecs describe-task-definition --task-definition "${{ secrets.ECS_TASK_DEFINITION }}" --query taskDefinition > task-definition.json
 
       - name: Render Amazon ECS task definition
         id: render-web-container
