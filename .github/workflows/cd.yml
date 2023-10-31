@@ -8,8 +8,6 @@ on:
 env:
   BRANCH_NAME: ${{github.ref_name}}
   APP_NAME: tech-challenge-api
-  DEPLOYMENT_NAME: "tech-challenge-app-deployment"
-  CONTAINER_NAME: "tech-challenge-app-container"
 
 jobs:
   build-image:
@@ -57,18 +55,18 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: deploy to cluster
-      uses: kodermax/kubectl-aws-eks@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    - name: Render Amazon ECS task definition
+      id: render-web-container
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        args: set image deployment/${{env.DEPLOYMENT_NAME}} ${{env.CONTAINER_NAME}}=${{ env.APP_NAME }}/${{ env.APP_NAME }}:${{ env.DOCKER_TAG}}
-        
-    - name: verify deployment
-      uses: kodermax/kubectl-aws-eks@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+        task-definition: ${{ env.ECS_TASK_DEFINITION }}
+        container-name: ${{ env.CONTAINER_NAME }}
+        image: ${{ steps.login-ecr.outputs.registry }}
+        environment-variables: "LOG_LEVEL=info"
+
+    - name: Deploy to Amazon ECS service
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        args: rollout status deployment/${{env.DEPLOYMENT_NAME}}
-        
+        task-definition: ${{ steps.render-web-container.outputs.task-definition }}:${{ env.DOCKER_TAG}}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ ECS_CLUSTER }}
