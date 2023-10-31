@@ -22,7 +22,7 @@ jobs:
           then
             DOCKER_TAG="latest-${{ github.sha }}"
           else
-            DOCKER_TAG="${{env.BRANCH_NAME}}-latest${{ github.sha }}"
+            DOCKER_TAG="${{env.BRANCH_NAME}}-latest-${{ github.sha }}"
           fi
           echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
       - name: Docker Tag
@@ -57,7 +57,7 @@ jobs:
 
     - name: Download task definition
       run: |
-        aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
+        echo ${{ secrets.ECS_TASK_DEFINITION }} && aws ecs describe-task-definition --task-definition "${{ secrets.ECS_TASK_DEFINITION }}" --query taskDefinition > task-definition.json
 
     - name: Render Amazon ECS task definition
       id: render-web-container
