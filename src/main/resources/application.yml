@@ -17,6 +17,12 @@ spring:
     hibernate:
       ddl-auto: update
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.${ZONE_ID}.amazonaws.com/${POOL_ID}
+            
 server:
   servlet:
     context-path: /tech-challenge
@@ -44,6 +50,12 @@ spring:
     console:
       enabled: true
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.${ZONE_ID}.amazonaws.com/${POOL_ID}
+
 server:
   servlet:
     context-path: /tech-challenge
@@ -70,6 +82,11 @@ spring:
     console:
       enabled: true
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.${ZONE_ID}.amazonaws.com/${POOL_ID}
 server:
   servlet:
     context-path: /tech-challenge
