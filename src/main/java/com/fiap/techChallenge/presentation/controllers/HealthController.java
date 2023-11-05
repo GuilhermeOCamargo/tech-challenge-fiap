@@ -18,7 +18,7 @@ public class HealthController {
     @GetMapping
     public Map<String, String> healthCheck() {
         var response = Map.of("status", "OK");
-        LOG.info("Endpoint de Health: ", response);
+        LOG.info("Endpoint de Health: {}", response);
         return response;
     }
 }
