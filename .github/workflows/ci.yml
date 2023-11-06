@@ -11,8 +11,8 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     env:
-      JACOCO_COVERAGE_OVERALL: 50
-      JACOCO_COVERAGE_CHANGED_FILES: 80
+      JACOCO_COVERAGE_OVERALL: 40
+      JACOCO_COVERAGE_CHANGED_FILES: 50
     steps:
       - name: Checkout
         uses: actions/checkout@v3

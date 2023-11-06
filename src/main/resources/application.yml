@@ -4,14 +4,13 @@ spring:
 ---
 
 spring:
+  application:
+    name: tech-challenge-app
   config:
     activate:
       on-profile: prd
   datasource:
-    url: ${MARIADB_URL}
     driver-class-name: org.mariadb.jdbc.Driver
-    username: ${MARIADB_USER}
-    password: ${MARIADB_PASSWORD}
   jpa:
     database-platform: org.hibernate.dialect.MariaDB103Dialect
     hibernate:
@@ -27,13 +26,11 @@ server:
   servlet:
     context-path: /tech-challenge
   port: 8080
-
-springdoc:
-  swagger-ui:
-    path: ${SWAGGER_URL}
 ---
 
 spring:
+  application:
+    name: tech-challenge-app
   config:
     activate:
       on-profile: dev
@@ -66,6 +63,8 @@ springdoc:
     path: /api-doc.html
 ---
 spring:
+  application:
+    name: tech-challenge-app
   config:
     activate:
       on-profile: local
