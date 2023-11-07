@@ -34,6 +34,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher( HttpMethod.POST,"/products/**")).hasAnyRole("grp_admin")
                         .requestMatchers(antMatcher( HttpMethod.PUT,"/products/**")).hasAnyRole("grp_admin")
                         .requestMatchers(antMatcher( HttpMethod.DELETE,"/products/**")).hasAnyRole("grp_admin")
+                        .requestMatchers(antMatcher( HttpMethod.GET, "/products/**")).permitAll()
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers(antMatcher("/customer/**")).permitAll()
                         .requestMatchers(antMatcher("/**")).authenticated())

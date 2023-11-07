@@ -15,12 +15,6 @@ spring:
     database-platform: org.hibernate.dialect.MariaDB103Dialect
     hibernate:
       ddl-auto: update
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://cognito-idp.${ZONE_ID}.amazonaws.com/${POOL_ID}
             
 server:
   servlet:
@@ -51,7 +45,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://cognito-idp.${ZONE_ID}.amazonaws.com/${POOL_ID}
+          issuer-uri: ""
 
 server:
   servlet:
@@ -85,7 +79,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://cognito-idp.${ZONE_ID}.amazonaws.com/${POOL_ID}
+          issuer-uri: https://example.com
 server:
   servlet:
     context-path: /tech-challenge

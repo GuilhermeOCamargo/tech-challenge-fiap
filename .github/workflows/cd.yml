@@ -2,8 +2,8 @@ name: 'Pipeline'
 on:
   push:
     branches:
-      - 'develop'
-      - 'release'
+#      - 'develop'
+#      - 'release'
       - 'main'
 env:
   BRANCH_NAME: ${{github.ref_name}}
