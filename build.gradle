@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'jacoco'
 }
 
 group = 'com.fiap'
@@ -23,24 +24,59 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation:3.1.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.1.1'
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.1.1'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.1.1'
+    // Spring Cloud Config
+    implementation 'org.springframework.cloud:spring-cloud-starter-config:4.0.4'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:4.0.4'
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws-parameter-store-config:2.4.4'
+
+//    implementation 'software.amazon.awssdk:ssm:2.21.14'
+
 
     compileOnly 'org.projectlombok:lombok'
     implementation 'com.google.guava:guava:32.0.1-jre'
     implementation 'br.com.caelum.stella:caelum-stella-core:2.1.6'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
-
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test:6.1.5'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.h2database:h2'
 
 }
 
-tasks.named('test') {
+jacoco {
+    toolVersion = "0.8.9"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination layout.buildDirectory.dir('jacocoHtml').get().asFile
+        xml.destination layout.buildDirectory.dir('jacoco/test/jacocoTestReport.xml').get().asFile
+    }
+    afterEvaluate {
+        getClassDirectories().setFrom(
+                files(classDirectories.files.collect {
+                    fileTree(dir: it, exclude: [
+                            'com/fiap/techChallenge/application/enums/**',
+                            'com/fiap/techChallenge/gateway/**',
+                            'com/fiap/techChallenge/util/**'
+                    ])
+                })
+        )
+    }
+}
+
+test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
 jar {

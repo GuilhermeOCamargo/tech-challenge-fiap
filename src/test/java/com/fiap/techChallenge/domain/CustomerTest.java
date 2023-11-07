@@ -1,4 +1,4 @@
-package com.fiap.techChallenge.application.core.domain;
+package com.fiap.techChallenge.domain;
 
 import com.fiap.techChallenge.domain.Customer;
 import com.fiap.techChallenge.domain.exceptions.InvalidDataException;

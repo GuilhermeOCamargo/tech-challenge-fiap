@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    default: local
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prd
+aws:
+  paramstore:
+    enabled: true
+    prefix: /config
+    profile-separator: _
+    region: us-east-1
+    name: tech-challenge-app
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+aws:
+  paramstore:
+    enabled: false
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+aws:
+  paramstore:
+    enabled: false
